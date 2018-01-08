@@ -6,7 +6,22 @@ const keys = require("./config/keys");
 require("./models/User");
 require("./services/passport");
 
-mongoose.connect(keys.mongoURI);
+const option = {
+    server: {
+        socketOptions: {
+            keepAlive: 300000,
+            connectTimeoutMS: 30000
+        }
+    },
+    replset: {
+        socketOptions: {
+            keepAlive: 300000,
+            connectTimeoutMS: 30000
+        }
+    }
+};
+
+mongoose.connect(keys.mongoURI,option);
 
 const app = express();
 
